@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    current_pattern = request.args.get('pattern', False)
+    pattern = request.args.get('pattern', None)
     stocks = {}
 
     with open('datasets/companies.csv') as f:
@@ -31,11 +31,10 @@ def index():
                     stocks[symbol][pattern] = 'bearish'
                 else:                     
                     stocks[symbol][pattern] = None
+            except:
+                 pass
 
-             except Exception as e:
-                print('failed on filename: ', filename)
-
-    return render_template('index.html', candlestick_patterns=candlestick_patterns, stocks=stocks, pattern=pattern)
+    return render_template('index.html', patterns=patterns, stocks=stocks, pattern=pattern)
 
 
 @app.route('/snapshot')

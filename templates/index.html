@@ -11,40 +11,20 @@
     <h1>Technical Scanner</h1>
     <form>
         <select name="pattern">
-            <option value="">-- Select a Pattern --</option>
-            {% for key in candlestick_patterns %}
-                <option value="{{ key }}" {% if pattern == key %}selected="selected"{% endif %}>{{ candlestick_patterns[key] }}</option>
+            {% for pattern in patterns %}
+                <option value="{{ pattern }}">{{ patterns[pattern] }}</option>
             {% endfor %}
         </select>
 
-        <input type="submit" value="Scan" />
+        <input type="submit" value="scan" />
     </form>
 
-    <table>
-        <tr>
-            <th>symbol</th>
-            <th>company</th>
-            <th>signal</th>
-        </tr>
-        {% for stock in stocks %}
-            {% if stocks[stock][pattern] %}
-            <tr>
-                <td>
-                    {{ stock }}
-                </td>
-                <td>
-                    {{ stocks[stock]['company'] }}
-                </td>
-                <td class="{{ stocks[stock][pattern] }}">
-                    {{ stocks[stock][pattern]}}
-                </td>
-            <tr>
-                <td colspan="3">
-                    <img src="https://finviz.com/chart.ashx?t={{ stock }}&ty=c&ta=1&p=d&s=l" />
-                </td>
-            </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
+    {% for stock in stocks %}
+    {{ stock }}
+
+    {{ stocks[stock]['company']}}
+    {{ stocks[stock][pattern]}}
+
+    {% endfor %}
 </body>
 </html>
