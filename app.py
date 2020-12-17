@@ -1,18 +1,26 @@
+import os
+import yfinance as yf
+import pandas as pd
+import talib
 from flask import Flask, render_template, request
 from patterns import patterns
-import yfinance as yf
+
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     pattern = request.args.get('pattern', None)
     if pattern:
-        print(pattern)
+        datafiles = os.listdir('datasets/daily')
+        for filename in datafiles:
+            df = pd.read_csv('datasets/daily/{}'.format(filename))
+            print(df)
+
     return render_template('index.html', patterns=patterns)
 
 @app.route('/snapshot')
 def snapshot():
-    with open('datasets/companies.csv') as f:
+    with open('datasets/daily/companies.csv') as f:
         companies = f.read().splitlines()
         for company in companies: 
             symbol = company.split(',')[0]
@@ -22,3 +30,4 @@ def snapshot():
     return {
         'code': 'success'
     }
+
