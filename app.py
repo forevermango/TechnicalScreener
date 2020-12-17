@@ -1,4 +1,4 @@
-import os
+import os, csv
 import yfinance as yf
 import pandas as pd
 import talib
@@ -10,11 +10,28 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     pattern = request.args.get('pattern', None)
+    stocks = {}
+
+    with open('datasets/companies.csv') as f:
+        for row in csv.reader(f):
+            stocks[row[0]] = {'company': row[1]}
+    print(stocks)
     if pattern:
         datafiles = os.listdir('datasets/daily')
         for filename in datafiles:
             df = pd.read_csv('datasets/daily/{}'.format(filename))
-            print(df)
+            #print(df)
+            pattern_function = getattr(talib, pattern)
+            try:
+                result = pattern_function(df['Open'], df['High'], df['Low'], df['Close'])
+                #print(result)
+                last = result.tail(1).values[0]
+                #print(last)
+                if last != 0:
+                    pass
+                    #print("{} triggered {}".format(filename, pattern))
+            except:
+                pass
 
     return render_template('index.html', patterns=patterns)
 
