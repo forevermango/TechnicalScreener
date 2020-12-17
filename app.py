@@ -24,16 +24,18 @@ def index():
             pattern_function = getattr(talib, pattern)
             try:
                 result = pattern_function(df['Open'], df['High'], df['Low'], df['Close'])
-                #print(result)
                 last = result.tail(1).values[0]
-                #print(last)
-                if last != 0:
-                    pass
-                    #print("{} triggered {}".format(filename, pattern))
+                if last < 0:
+                    stocks[symbol][pattern] = 'bullish'
+                elif last < 0:
+                    stocks[symbol][pattern] = 'bearish'
+                else:                     
+                    stocks[symbol][pattern] = None
+
             except:
                 pass
 
-    return render_template('index.html', patterns=patterns)
+    return render_template('index.html', patterns=patterns, stocks=stocks)
 
 @app.route('/snapshot')
 def snapshot():
