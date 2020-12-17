@@ -13,7 +13,14 @@
                 {% endfor %}
             </select>
             <input type="submit" value='scan'>
-        </form>        
+        </form>
+        
+        {% for stock in stocks %}
+            {{ stock }}
+
+            {{ stocks[stock]['company'] }}
+            {{ stocks[stock][pattern] }}
+        {% endfor %}
 
     </body>
 </html>

@@ -35,7 +35,7 @@ def index():
             except:
                 pass
 
-    return render_template('index.html', patterns=patterns, stocks=stocks)
+    return render_template('index.html', patterns=patterns, stocks=stocks, pattern=pattern)
 
 @app.route('/snapshot')
 def snapshot():
