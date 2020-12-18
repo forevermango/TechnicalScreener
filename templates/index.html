@@ -18,13 +18,29 @@
 
         <input type="submit" value="scan" />
     </form>
-
-    {% for stock in stocks %}
-
+    <table>
+        <tr>
+            <th>
+                symbol
+            </th>
+            <th>
+                company name
+            </th>
+            <th>
+                signal
+            </th>
+        </tr>
+        {% for stock in stocks %}
         {% if stocks[stock][current_pattern] %}
-        {{ stock }}
-            {{ stocks[stock]['company'] }}
+        <tr>
+            <td>{{ stock }}</td>
+            <td>{{ stocks[stock]['company'] }}</td>
+            <td>{{ stocks[stock][current_pattern] }}</td>
+        </tr>
+               
         {% endif %}
     {% endfor %}
+    </table>
+
 </body>
 </html>
