@@ -35,7 +35,7 @@
         <tr>
             <td>{{ stock }}</td>
             <td>{{ stocks[stock]['company'] }}</td>
-            <td>{{ stocks[stock][current_pattern] }}</td>
+            <td class="{{ stocks[stock][current_pattern] }}">{{ stocks[stock][current_pattern] }}</td>
         </tr>
                
         {% endif %}
