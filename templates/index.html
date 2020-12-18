@@ -2,7 +2,7 @@
 <head>
     <style>
         body { font-family: arial; margin: 20px; }
-        td { padding: 5px; }
+        td { padding: 10px; }
         .bullish { background: green; color: white; }
         .bearish { background: red; color: white; }
     </style>
@@ -30,6 +30,7 @@
                 signal
             </th>
         </tr>
+
         {% for stock in stocks %}
         {% if stocks[stock][current_pattern] %}
         <tr>
@@ -37,7 +38,11 @@
             <td>{{ stocks[stock]['company'] }}</td>
             <td class="{{ stocks[stock][current_pattern] }}">{{ stocks[stock][current_pattern] }}</td>
         </tr>
-               
+        <tr>
+            <td colspan="3">
+                <img src="https://finviz.com/chart.ashx?t={{ stock }}&ty=c&ta=1&p=d&s=l"/>
+            </td>
+        </tr>
         {% endif %}
     {% endfor %}
     </table>
