@@ -3,11 +3,14 @@
     <style>
         body { font-family: arial; margin: 20px; }
         td { padding: 10px; }
+        h1 {text-align: center;}
+        #page-wrap {width: 750px; margin: 0 auto;}
         .bullish { background: green; color: white; }
         .bearish { background: red; color: white; }
     </style>
 </head>
 <body>
+    <div id="page-wrap">
     <h1>Technical Scanner</h1>
     <form>
         <select name="pattern">
@@ -46,6 +49,6 @@
         {% endif %}
     {% endfor %}
     </table>
-
+</div>
 </body>
 </html>
