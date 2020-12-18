@@ -12,7 +12,7 @@
     <form>
         <select name="pattern">
             {% for pattern in patterns %}
-                <option value="{{ pattern }}">{{ patterns[pattern] }}</option>
+                <option value="{{ pattern }}" {% if pattern == current_pattern %}selected="selected"{% endif %}>{{ patterns[pattern] }}</option>
             {% endfor %}
         </select>
 
@@ -20,11 +20,11 @@
     </form>
 
     {% for stock in stocks %}
-    {{ stock }}
 
-    {{ stocks[stock]['company']}}
-    {{ stocks[stock][pattern]}}
-
+        {% if stocks[stock][current_pattern] %}
+        {{ stock }}
+            {{ stocks[stock]['company'] }}
+        {% endif %}
     {% endfor %}
 </body>
 </html>

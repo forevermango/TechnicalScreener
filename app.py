@@ -15,7 +15,7 @@ def index():
     with open('datasets/companies.csv') as f:
         for row in csv.reader(f):
             stocks[row[0]] = {'company': row[1]}
-
+    print(stocks)
     if pattern:
         datafiles = os.listdir('datasets/daily')
         for filename in datafiles:
@@ -34,16 +34,14 @@ def index():
             except:
                  pass
 
-    return render_template('index.html', patterns=patterns, stocks=stocks, pattern=pattern)
+    return render_template('index.html', patterns=patterns, stocks=stocks, current_pattern=pattern)
 
 
 @app.route('/snapshot')
 def snapshot():
     with open('datasets/daily/companies.csv') as f:
         companies = f.read().splitlines()
-        for line in f:
-            if "," not in line:
-                continue
+        for companies in companies:
             symbol = line.split(",")[0]
             data = yf.download(symbol, start="2020-01-01", end="2020-08-01")
             data.to_csv('datasets/daily/{}.csv'.format(symbol))
